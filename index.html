@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>キャラクター紹介</title>
+  <style>
+body {
+  margin: 0;
+  font-family: "Hiragino Maru Gothic ProN", "Segoe UI", sans-serif;
+  background: #f9f9f9; /* 単色の薄グレー */
+  color: #333;
+}
+
+/* ヘッダー */
+header {
+  background: #ff6699;
+  color: white;
+  padding: 15px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;  /* ヘッダーを画面の左端に固定 */
+  z-index: 1000;
+  border-bottom: 6px solid #fff;
+}
+
+/* ヘッダー内のアイコンとテキストを左寄せ */
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;  /* 左側に寄せるための余白を削除 */
+  justify-content: flex-start;  /* アイコンとテキストを左寄せに固定 */
+}
+
+/* ヘッダーアイコンを画像に変更 */
+.header-icon {
+  width: 80px;          /* 画像の幅 */
+  height: 80px;         /* 画像の高さ */
+  object-fit: cover;    /* 画像が枠に収まるように調整 */
+  border-radius: 0;     /* 丸い形にしない */
+  border: none;         /* 枠線なし */
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/* 吹き出し */
+.balloon {
+  background: #fff;
+  color: #ff6699;
+  padding: 6px 12px; /* 左右のpaddingを調整 */
+  border-radius: 12px;
+  display: inline-block;
+  position: relative;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  width: auto; /* 固定幅を使う場合、autoを使って調整 */
+  max-width: 180px; /* 最大幅を指定（必要なら調整） */
+}
+.balloon::after {
+  content: "";
+  position: absolute;
+  left: -12px; /* 吹き出し尻尾をさらに左に寄せる */
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-right: 8px solid #fff;
+}
+
+/* 2行目（連絡先） */
+.contact {
+  font-size: 13px;
+  color: #fff;
+  white-space: nowrap;
+}
+.contact .mail {
+  color: #fff;
+  margin-left: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+.contact .mail:hover {
+  color: #ffff99;
+}
+.contact .xlink {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* Xアイコン */
+.x-icon {
+  vertical-align: middle;
+  filter: brightness(0) invert(1); /* 白抜きに見せる */
+  transition: filter 0.3s ease;    /* 変化をスムーズに */
+}
+
+
+/* フッター */
+footer {
+  background: #ff6699;
+  color: white;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;  /* フッターを画面の下端に固定 */
+  width: 100%;
+  left: 0;
+  z-index: 1000;
+  font-size: 12px;
+  text-align: center; /* 文字を中央揃えに */
+}
+
+
+.contact .mail img, .contact .xlink img {
+  width: 30px;  /* アイコンのサイズ調整 */
+  height: 30px; /* アイコンのサイズ調整 */
+  vertical-align: middle; /* 文字とアイコンが縦揃え */
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+main {
+  margin: 100px 0 70px; /* ヘッダー＆フッター分の余白 */
+  padding: 20px;
+}
+
+/* 吹き出し画像の中央配置 */
+.hukidasi-img {
+  display: block;          /* 画像をブロック要素に変更 */
+  margin: -50px auto 0;     /* 上に10px、下に余白なし */
+  max-width: 80%;          /* 画面幅の80%以内に収める */
+  height: auto;            /* 高さは自動調整 */
+  transform: translateY(-10px); /* 画像を10px上に移動 */
+}
+
+
+.character {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* キャラ画像の演出（ポンッとズームイン） */
+.character img {
+  width: 300px;
+  max-width: 90%;
+  filter: drop-shadow(0 3px 3px rgba(0,0,0,0.8));
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.character.active img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* プロフィール部分の演出（下からスッとフェードイン・遅延あり） */
+.profile {
+  max-width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.1s;
+}
+.character.active .profile {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profile h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ff6699;
+}
+.profile p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+.profile a {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #ff6699;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.profile a:hover {
+  background: #ff3366;
+}
+
+.icons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+/* アイコン選択 */
+.icons img {
+  width: 100px !important;  /* アイコンの基本サイズ */
+  height: 100px !important;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 50%;
+margin-top: -40px;
+  border: 3px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;  /* 変化にアニメーション */
+}
+
+.icons img.active {
+  border: 5px solid #ff6699; /* 太めのピンクのボーダー */
+  transform: scale(1.1);     /* 少し拡大して強調 */
+  box-shadow: 0 0 8px 3px rgba(255, 102, 153, 0.5); /* 強めの光る影 */
+  transition: all 0.3s ease;
+}
+
+
+
+.icons img:hover {
+  transform: scale(1.2); /* ホバー時に少し大きくなる */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* ホバー時に影を追加 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;  /* スムーズな変化 */
+}
+
+.icons img:active {
+  animation: bounce 0.2s ease; /* クリック時にぴょん！アニメーション */
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);  /* 上に10px跳ねる */
+  }
+  100% {
+    transform: translateY(0);  /* 元に戻る */
+  }
+}
+
+/* 記念グッズボタン（右側固定） */
+.memorial-btn {
+  position: fixed;      /* 画面に固定 */
+  bottom: 80px;         /* 画面下部から20pxの位置 */
+  right: 20px;          /* 画面右端から20pxの位置 */
+  padding: 10px 20px;
+  background-color: #ff6699;
+  color: white;
+  font-size: 16px;
+  border-radius: 30px;  /* 角丸にする */
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.memorial-btn:hover {
+  background-color: #ff3366;  /* ホバー時の色変更 */
+}
+
+
+
+/* スマホ表示 */
+@media (max-width: 768px) {
+  .character {
+    flex-direction: row;     /* 横並びに変更 */
+    align-items: center;     /* アイコンとテキストを中央揃え */
+    gap: 15px;               /* アイコンとテキストの間に余白 */
+justify-content: flex-start; 
+  }
+
+  /* キャラクターイラストのサイズを小さく */
+  .character img {
+    width: 200px;  /* スマホ表示時にキャラクター画像を小さくする */
+    height: auto;  /* 高さは自動調整 */
+margin-left: -20px;
+  }
+
+  /* 名前のフォントサイズを大きめに */
+  .profile h2 {
+    font-size: 25px;  /* 名前のフォントサイズを小さく */
+    margin-top: -75px;  /* 名前の位置を上に寄せる */
+    margin-bottom: 5px;  /* 下の余白を少し減らす */
+  }
+
+  /* プロフィール文字も大きく */
+  .profile p {
+    font-size: 14px;         /* スマホでは文字を大きめに */
+margin-top: 25px; 
+  }
+
+  .profile a {
+    font-size: 14px;         /* スマホではリンク文字を大きく */
+  }
+
+  .icons img { 
+    width: 50px; 
+    height: 50px;            /* アイコンをもう少し大きくする */
+  }
+
+ /* 吹き出し画像の調整 */
+  .hukidasi-img {
+    max-width: 60%;        /* 吹き出し画像のサイズを小さく */
+    margin-top: -40px;     /* 画像を上に詰める */
+  }
+
+  .icons img {
+    width: 80px !important;  /* アイコンの幅を60pxに強制的に変更 */
+    height: 80px !important; /* アイコンの高さを60pxに強制的に変更 */
+    object-fit: cover;       /* アスペクト比を保ちながらアイコンを縮小 */
+  }
+
+  .memorial-btn {
+    bottom: 250px;  /* スマホ表示時にボタンを上に80px上げる */
+  }
+
+}
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <img src="logo.png" alt="アイコン" class="header-icon">
+      <div class="header-text">
+        <div class="balloon">イラスト制作ならおまかせ！</div>
+        <div class="contact">
+          ご連絡はこちらまで！ →<a href="https://forms.gle/L5nwwmabneY6YLWLA" class="mail">
+  <img src="mail_icon.png" alt="メール" class="contact-icon">
+</a>or<a href="https://x.com/ChuChan_1" target="_blank" class="xlink">
+            <img src="x_custom_icon.png" alt="X" class="x-icon">
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- キャラクター1 -->
+    <div class="character active" id="char1" style="display:flex;">
+      <img src="char1.png" alt="キャラクター1">
+      <div class="profile">
+        <h2>キャラクター1</h2>
+        <p>明るく元気なキャラクター。冒険が大好きでいつも仲間を励ましてくれる存在！</p>
+        <a href="https://twitter.com/" target="_blank">Twitter</a>
+        <a href="https://youtube.com/" target="_blank">YouTube</a>
+      </div>
+    </div>
+
+    <!-- キャラクター2 -->
+    <div class="character" id="char2">
+      <img src="char2.png" alt="キャラクター2">
+      <div class="profile">
+        <h2>キャラクター2</h2>
+        <p>クールで知的なキャラクター。読書や考察が得意で、冷静にチームを導く。</p>
+        <a href="https://twitter.com/" target="_blank">Twitter</a>
+      </div>
+    </div>
+
+    <!-- キャラクター3 -->
+    <div class="character" id="char3">
+      <img src="char3.png" alt="キャラクター3">
+      <div class="profile">
+        <h2>キャラクター3</h2>
+        <p>のんびり屋でちょっとドジ。だけどピンチの時には驚くほど頼りになる。</p>
+        <a href="https://twitter.com/" target="_blank">Twitter</a>
+        <a href="https://twitch.tv/" target="_blank">Twitch</a>
+      </div>
+    </div>
+<br><br>
+    <!-- アイコン選択 -->
+  <!-- ふきだし画像を中央配置 -->
+  <img src="hukidasi.png" alt="吹き出し" class="hukidasi-img">
+    <div class="icons">
+      <img src="char1_icon.png" alt="キャラ1" data-target="char1" class="active">
+      <img src="char2_icon.png" alt="キャラ2" data-target="char2">
+      <img src="char3_icon.png" alt="キャラ3" data-target="char3">
+    </div>
+<!-- 記念グッズリンクボタン -->
+<a href="https://booth.pm/ja" class="memorial-btn" target="_blank">記念グッズはこちら！</a>
+  </main>
+</br></br>
+  <footer>© 2025 ChuChan 駅ナカ広告ポスター企画</footer>
+
+  <script>
+    const icons = document.querySelectorAll(".icons img");
+    const characters = document.querySelectorAll(".character");
+
+    icons.forEach(icon => {
+      icon.addEventListener("click", () => {
+        // アイコンのアクティブ切替
+        icons.forEach(i => i.classList.remove("active"));
+        icon.classList.add("active");
+
+        // キャラクター表示切替
+        characters.forEach(c => {
+          c.classList.remove("active");
+          c.style.display = "none";
+        });
+
+        const target = document.getElementById(icon.dataset.target);
+        target.style.display = "flex";
+        setTimeout(() => target.classList.add("active"), 10);
+      });
+    });
+  </script>
+</body>
+</html>
