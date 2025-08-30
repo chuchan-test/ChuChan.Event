@@ -274,10 +274,9 @@ margin-top: -40px;
 /* スマホ表示 */
 @media (max-width: 768px) {
   .character {
-    flex-direction: row;     /* 横並びに変更 */
-    align-items: center;     /* アイコンとテキストを中央揃え */
-    gap: 15px;               /* アイコンとテキストの間に余白 */
-justify-content: flex-start; 
+    flex-direction: row;           /* キャラクター画像とプロフィールを横並びに */
+    align-items: flex-start;       /* アイテムを上揃え */
+    gap: 15px;                     /* キャラクター画像とプロフィールの間隔 */
   }
 
   /* キャラクターイラストのサイズを小さく */
@@ -295,18 +294,20 @@ margin-left: -20px;
   }
 
   /* プロフィール文字も大きく */
-    .profile .social-links {
+  .social-links {
     display: flex;
+    justify-content: flex-start;   /* ボタンを左揃え */
     gap: 10px;                     /* ボタン間の隙間を調整 */
-    justify-content: flex-start;   /* 左揃え */
+    flex-wrap: nowrap;             /* ボタンが折り返されないようにする */
+    width: 100%;                   /* 親要素内で横並びになるように */
   }
+
 
 .profile p {
     font-size: 14px;         /* スマホでは文字を大きめに */
-margin-top: 25px; 
+margin-top: 0px; 
   }
 
-  .profile a {
   .profile a {
     font-size: 14px;               /* フォントサイズを少し小さく */
     padding: 8px 15px;             /* ボタンの内側余白を調整 */
@@ -318,11 +319,16 @@ margin-top: 25px;
     transition: background-color 0.3s ease;  /* ホバー時の色変更 */
   }
 
+  .profile a:hover {
+    background-color: #ff3366;     /* ホバー時の背景色 */
+  }
+
   .profile {
     display: flex;
     flex-direction: column;        /* キャラクター名、自己紹介、外部リンクを縦並びに */
     gap: 10px;                     /* 各要素の間隔を調整 */
     align-items: flex-start;       /* 左揃え */
+    margin-top: 80px;              /* プロフィール部分の上の余白を調整 */
   }
 
   .icons img { 
@@ -375,8 +381,10 @@ margin-top: 25px;
       <div class="profile">
         <h2>キャラクター1</h2>
         <p>明るく元気なキャラクター。冒険が大好きでいつも仲間を励ましてくれる存在！</p>
+<div class="social-links">
         <a href="https://twitter.com/" target="_blank">Twitter</a>
         <a href="https://youtube.com/" target="_blank">YouTube</a>
+      </div>
       </div>
     </div>
 
@@ -386,7 +394,9 @@ margin-top: 25px;
       <div class="profile">
         <h2>キャラクター2</h2>
         <p>クールで知的なキャラクター。読書や考察が得意で、冷静にチームを導く。</p>
+ <div class="social-links">
         <a href="https://twitter.com/" target="_blank">Twitter</a>
+      </div>
       </div>
     </div>
 
@@ -396,8 +406,10 @@ margin-top: 25px;
       <div class="profile">
         <h2>キャラクター3</h2>
         <p>のんびり屋でちょっとドジ。だけどピンチの時には驚くほど頼りになる。</p>
+ <div class="social-links">
         <a href="https://twitter.com/" target="_blank">Twitter</a>
         <a href="https://twitch.tv/" target="_blank">Twitch</a>
+</div>
       </div>
     </div>
 <br><br>
