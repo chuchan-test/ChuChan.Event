@@ -330,14 +330,13 @@ z-index: 2;
     background-color: #ff3366;     /* ホバー時の背景色 */
   }
 
-.profile {
-  display: flex;
-  flex-direction: column;        /* キャラクター名、自己紹介、外部リンクを縦並びに */
-  gap: 10px;                     /* 各要素の間隔を調整 */
-  align-items: flex-start;       /* 左揃え */
-  margin-top: 80px;              /* プロフィール部分の上の余白を調整 */
-  padding-right: 20px;           /* 右側の余白を追加 */
-}
+  .profile {
+    display: flex;
+    flex-direction: column;        /* キャラクター名、自己紹介、外部リンクを縦並びに */
+    gap: 10px;                     /* 各要素の間隔を調整 */
+    align-items: flex-start;       /* 左揃え */
+    margin-top: 80px;              /* プロフィール部分の上の余白を調整 */
+  }
 
   .icons img { 
     width: 50px; 
@@ -345,21 +344,25 @@ z-index: 2;
   }
 
  /* 吹き出し画像の調整 */
-  .hukidasi-img {
-    max-width: 60%;        /* 吹き出し画像のサイズを小さく */
-    margin-top: -40px;     /* 画像を上に詰める */
-margin-left: 50px;
-  }
+.hukidasi-img {
+  display: block;                /* 画像をブロック要素に変更 */
+  margin: -40px auto 0;          /* 上に10px、下に余白なし */
+  max-width: 80%;                /* 画面幅の80%以内に収める */
+  height: auto;                  /* 高さは自動調整 */
+  transform: translateY(-10px);  /* 画像を10px上に移動 */
+}
 
   .icons img {
     width: 80px !important;  /* アイコンの幅を60pxに強制的に変更 */
     height: 80px !important; /* アイコンの高さを60pxに強制的に変更 */
     object-fit: cover;       /* アスペクト比を保ちながらアイコンを縮小 */
 margin-left: 50px;
+  justify-content: center;       /* アイコンを中央配置 */
+  gap: 0px;                     /* アイコン間の余白を設定 */
   }
 
   .memorial-btn {
-    bottom: -30px;  /* スマホ表示時にボタンを上に80px上げる */
+    bottom: 0px;  /* スマホ表示時にボタンを上に80px上げる */
   }
 
 }
