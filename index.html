@@ -277,13 +277,16 @@ margin-top: -40px;
     flex-direction: row;           /* キャラクター画像とプロフィールを横並びに */
     align-items: flex-start;       /* アイテムを上揃え */
     gap: 15px;                     /* キャラクター画像とプロフィールの間隔 */
+    margin-left: 20px;             /* キャラクターを少し右に移動 */
+    position: relative;            /* キャラクターの位置を調整できるようにする */
   }
 
   /* キャラクターイラストのサイズを小さく */
   .character img {
-    width: 200px;  /* スマホ表示時にキャラクター画像を小さくする */
+    width: 250px;  /* スマホ表示時にキャラクター画像を小さくする */
     height: auto;  /* 高さは自動調整 */
-margin-left: -20px;
+margin-left: -30px;
+z-index: 1; 
   }
 
   /* 名前のフォントサイズを大きめに */
@@ -317,6 +320,7 @@ margin-top: 0px;
     text-decoration: none;         /* アンダーラインを削除 */
     text-align: center;
     transition: background-color 0.3s ease;  /* ホバー時の色変更 */
+z-index: 2;  
   }
 
   .profile a:hover {
@@ -349,7 +353,7 @@ margin-top: 0px;
   }
 
   .memorial-btn {
-    bottom: 250px;  /* スマホ表示時にボタンを上に80px上げる */
+    bottom: 200px;  /* スマホ表示時にボタンを上に80px上げる */
   }
 
 }
