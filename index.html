@@ -282,7 +282,7 @@ margin-top: -40px;
 
   /* キャラクターイラストのサイズを小さく */
   .character img {
-    width: 220px;  /* スマホ表示時にキャラクター画像を小さくする */
+    width: 200px;  /* スマホ表示時にキャラクター画像を小さくする */
     height: auto;  /* 高さは自動調整 */
 margin-left: -15px;
 z-index: 1; 
@@ -343,11 +343,11 @@ z-index: 2;
  /* 吹き出し画像の調整 */
 .hukidasi-img {
   display: block;                /* 画像をブロック要素に変更 */
-  margin: -40px auto 0;          /* 上に10px、下に余白なし */
-  max-width: 60%;                /* 画面幅の80%以内に収める */
+  margin: -50px auto 0;          /* 上に10px、下に余白なし */
+  max-width: 50%;                /* 画面幅の80%以内に収める */
   height: auto;                  /* 高さは自動調整 */
   transform: translateY(-10px);  /* 画像を10px上に移動 */
-margin-left: 90px;
+margin-left: 120px;
 }
 
 .icons {
@@ -366,8 +366,9 @@ margin-left: 90px;
 
 
   .memorial-btn {
-    bottom: -50px;  /* スマホ表示時にボタンを上に80px上げる */
-margin-left: 20px;
+    bottom: 320px;   /* 数字を大きくするほど上に移動する */
+    right: 20px;     /* 右端の位置 */
+    margin-left: 0;  /* 左余白は不要なら削除 */
   }
 
 }
