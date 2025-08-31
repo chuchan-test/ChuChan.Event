@@ -166,10 +166,11 @@ main {
 /* プロフィール部分の演出（下からスッとフェードイン・遅延あり） */
 .profile {
   max-width: 400px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transition-delay: 0.1s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;              /* 各要素の間隔を統一 */
+  margin-top: 20px;       /* 上の余白を統一 */
+  margin-left: 0;         /* 左に余白がついていればリセット */
 }
 .character.active .profile {
   opacity: 1;
@@ -341,28 +342,26 @@ z-index: 2;
 
 
  /* 吹き出し画像の調整 */
-.hukidasi-img {
-  display: block;                /* 画像をブロック要素に変更 */
-  margin: -50px auto 0;          /* 上に10px、下に余白なし */
-  max-width: 50%;                /* 画面幅の80%以内に収める */
-  height: auto;                  /* 高さは自動調整 */
-  transform: translateY(-10px);  /* 画像を10px上に移動 */
-margin-left: 100px;
-}
+  .hukidasi-img {
+    display: block;
+    margin: -20px auto 0;   /* 上の余白を縮める */
+    max-width: 50%;
+    height: auto;
+    transform: translateY(-5px); /* 移動量も小さくして隙間を減らす */
+    margin-left: auto;           /* 中央寄せ */
+    margin-right: auto;
+  }
 
-.icons {
-  display: flex;
-  justify-content: center;    /* アイコンを中央に配置 */
-  gap: -10px;                 /* アイコン間の隙間を縮める（必要に応じて値を調整） */
-}
+  .icons {
+    margin-top: -10px;   /* ← デフォルト30pxを小さくして隙間を縮める */
+    gap: 8px;           /* アイコン同士の間隔も少し詰める */
+  }
 
-.icons img {
-  width: 70px !important;     /* アイコンの幅を70pxに設定 */
-  height: 70px !important;    /* アイコンの高さを70pxに設定 */
-  object-fit: cover;          /* アイコンのアスペクト比を保つ */
-  margin-left: 10px;          /* 左側の余白を調整（親要素内で隙間を調整） */
-  margin-right: 10px;         /* 右側の余白を調整 */
-}
+  .icons img {
+    width: 50px !important;   /* アイコン自体もさらに小さめにするなら調整 */
+    height: 50px !important;
+    margin: 0;                /* 左右マージンを削除して隙間を詰める */
+  }
 
 
   .memorial-btn {
@@ -394,43 +393,71 @@ margin-left: 100px;
 
   <main>
 
-    <!-- キャラクター1 -->
-    <div class="character active" id="char1" style="display:flex;">
-      <img src="char1.png" alt="キャラクター1">
-      <div class="profile">
-        <h2>キャラクター1</h2>
-        <p>明るく元気なキャラクター。冒険が大好きでいつも仲間を励ましてくれる存在！</p>
-<div class="social-links">
-        <a href="https://twitter.com/" target="_blank">Twitter</a>
-        <a href="https://youtube.com/" target="_blank">YouTube</a>
-      </div>
-      </div>
+<!-- キャラクター1 -->
+<div class="character" id="char1">
+  <img src="char1.png" alt="キャラクター1">
+  <div class="profile">
+    <h2>キャラクター1</h2>
+    <p>説明文をここに入れます。</p>
+    <div class="social-links">
+      <a href="https://twitter.com/" target="_blank">Twitter</a>
+<a href="https://twitter.com/" target="_blank">Twitter</a>
     </div>
-
-    <!-- キャラクター2 -->
-    <div class="character" id="char2">
-      <img src="char2.png" alt="キャラクター2">
-      <div class="profile">
-        <h2>キャラクター2</h2>
-        <p>クールで知的なキャラクター。読書や考察が得意で、冷静にチームを導く。</p>
- <div class="social-links">
-        <a href="https://twitter.com/" target="_blank">Twitter</a>
-      </div>
-      </div>
-    </div>
-
-    <!-- キャラクター3 -->
-    <div class="character" id="char3">
-      <img src="char3.png" alt="キャラクター3">
-      <div class="profile">
-        <h2>キャラクター3</h2>
-        <p>のんびり屋でちょっとドジ。だけどピンチの時には驚くほど頼りになる。</p>
- <div class="social-links">
-        <a href="https://twitter.com/" target="_blank">Twitter</a>
-        <a href="https://twitch.tv/" target="_blank">Twitch</a>
+  </div>
 </div>
-      </div>
+
+<!-- キャラクター2 -->
+<div class="character" id="char2">
+  <img src="char2.png" alt="キャラクター2">
+  <div class="profile">
+    <h2>キャラクター2</h2>
+    <p>説明文をここに入れます。</p>
+    <div class="social-links">
+      <a href="https://twitch.tv/" target="_blank">Twitch</a>
+<a href="https://twitter.com/" target="_blank">Twitter</a>
     </div>
+  </div>
+</div>
+
+<!-- キャラクター3 -->
+<div class="character" id="char3">
+  <img src="char3.png" alt="キャラクター3">
+  <div class="profile">
+    <h2>キャラクター3</h2>
+    <p>説明文をここに入れます。</p>
+    <div class="social-links">
+      <a href="https://twitter.com/" target="_blank">Twitter</a>
+<a href="https://twitter.com/" target="_blank">Twitter</a>
+    </div>
+  </div>
+</div>
+
+<!-- キャラクター4 -->
+<div class="character" id="char4">
+  <img src="char4.png" alt="キャラクター4">
+  <div class="profile">
+    <h2>キャラクター4</h2>
+    <p>説明文をここに入れます。</p>
+    <div class="social-links">
+      <a href="https://twitter.com/" target="_blank">Twitter</a>
+<a href="https://twitter.com/" target="_blank">Twitter</a>
+    </div>
+  </div>
+</div>
+
+<!-- キャラクター5 -->
+<div class="character" id="char5">
+  <img src="char5.png" alt="キャラクター5">
+  <div class="profile">
+    <h2>キャラクター5</h2>
+    <p>説明文をここに入れます。</p>
+    <div class="social-links">
+      <a href="https://twitch.tv/" target="_blank">Twitch</a>
+<a href="https://twitter.com/" target="_blank">Twitter</a>
+    </div>
+  </div>
+</div>
+
 <br><br>
     <!-- アイコン選択 -->
   <!-- ふきだし画像を中央配置 -->
@@ -439,6 +466,8 @@ margin-left: 100px;
       <img src="char1_icon.png" alt="キャラ1" data-target="char1" class="active">
       <img src="char2_icon.png" alt="キャラ2" data-target="char2">
       <img src="char3_icon.png" alt="キャラ3" data-target="char3">
+  <img src="char4_icon.png" alt="キャラ4" data-target="char4">
+  <img src="char5_icon.png" alt="キャラ5" data-target="char5">
     </div>
 <!-- 記念グッズリンクボタン -->
 <a href="https://booth.pm/ja" class="memorial-btn" target="_blank">記念グッズはこちら！</a>
