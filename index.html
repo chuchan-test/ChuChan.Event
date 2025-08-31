@@ -353,7 +353,7 @@ z-index: 2;
   }
 
   .icons {
-    margin-top: -10px;   /* ← デフォルト30pxを小さくして隙間を縮める */
+    margin-top: 20px;   /* ← デフォルト30pxを小さくして隙間を縮める */
     gap: 8px;           /* アイコン同士の間隔も少し詰める */
   }
 
@@ -493,7 +493,7 @@ z-index: 2;
 
         const target = document.getElementById(icon.dataset.target);
         target.style.display = "flex";
-        setTimeout(() => target.classList.add("active"), 10);
+        setTimeout(() => target.classList.add("active"), 0);
       });
     });
   </script>
